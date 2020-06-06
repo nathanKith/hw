@@ -1,0 +1,39 @@
+dist:     trusty
+sudo:     required
+
+language: c
+
+os:
+  - linux
+
+compiler:
+  - gcc
+  - clang
+
+
+addons:
+  apt:
+    packages:
+     - valgrind
+     - cppcheck
+     - make
+     - cmake
+
+
+matrix:
+  exclude:
+    - os:       osx
+      compiler: gcc
+
+    - os:  osx
+      env: TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
+
+    - os:  osx
+      env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
+
+
+script:
+  - /linters/run.sh
+  - make clean && make
+  - ./tests.out
+  - valgrind ./main.out
