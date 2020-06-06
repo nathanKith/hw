@@ -1,1 +1,1 @@
-It's readme.
+Individual task TP, C/C++.
